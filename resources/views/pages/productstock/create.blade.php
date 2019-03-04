@@ -67,13 +67,22 @@
         });
 
         function submitForm() {
+            let _token = $( "input[name='_token']" ).val();
+            let name = $('#productName').val();
+            let quantity = $('#productQuantityInStock').val();
+            let price = $('#productPrice').val();
+
+            if (!_token || !name || !quantity || !price) {
+                alert('All fields are required');
+            }
+
             $.ajax({
                 url: "{{route('product.stock.store')}}",
                 data: {
-                    '_token': $( "input[name='_token']" ).val(),
-                    'name': $('#productName').val(),
-                    'quantity': $('#productQuantityInStock').val(),
-                    'price': $('#productPrice').val(),
+                    '_token': _token,
+                    'name': name,
+                    'quantity': quantity,
+                    'price': price,
                 },
                 type: 'POST'
             }).done(function(result) {
